@@ -44,7 +44,7 @@ public class home extends Fragment {
     public static String user = null;
     public static boolean state;
     public static ArrayList<String> getfollwersdata;
-
+ArrayList<String>s;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
