@@ -64,18 +64,18 @@ public class profile extends Fragment {
                 recyclerView.setAdapter(postAdaptor);
                 postAdaptor.setOnClickListener(new user_searchAdaptor.OnItemClickListener() {
                     @Override
-                    public void Edit_item(int position) {
-
+                    public void Edit_item(int position, boolean like_state) {
+                        Toast.makeText(getContext(), ""+like_state, Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getActivity(), User.class)
                                 .putExtra("userid",userinfo.get(position).getUserid())
-                                 .putExtra("index",position)
+                                .putExtra("index",position)
+                                .putExtra("img",userinfo.get(position).getUserphoto())
+                                .putExtra("state", like_state)
+
+
 
 
                         );
-
-
-
-
                     }
                 });
 

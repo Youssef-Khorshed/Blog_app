@@ -44,7 +44,7 @@ public class user_searchAdaptor extends RecyclerView.Adapter<user_searchAdaptor.
 
 
     public interface OnItemClickListener {
-        void Edit_item(int position);
+        void Edit_item(int position, boolean like_state);
     }
 
     public void setOnClickListener(OnItemClickListener listener) {
@@ -95,10 +95,12 @@ public class user_searchAdaptor extends RecyclerView.Adapter<user_searchAdaptor.
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.child(auth.getCurrentUser().getUid()).hasChild(userid)) {
                         follow.setImageResource(R.drawable.ic_favorite);
+                        tst = true;
 
 
                     } else {
                         follow.setImageResource(R.drawable.ic_not_favourite);
+                        tst = false;
 
                     }
 
@@ -132,7 +134,7 @@ public class user_searchAdaptor extends RecyclerView.Adapter<user_searchAdaptor.
                     if (listener != null) {
 
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.Edit_item(position);
+                            listener.Edit_item(position,tst);
                         }
                     }
                 }

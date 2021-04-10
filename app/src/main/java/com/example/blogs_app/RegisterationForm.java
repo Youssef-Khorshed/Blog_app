@@ -152,7 +152,7 @@ public class RegisterationForm extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Push_data(new data(Name.getText().toString(), Password.getText().toString(), cpp.getFullNumberWithPlus().replace(" ", ""), Email.getText().toString(),currentUser.getPhotoUrl().toString(),currentUser.getUid()));
+                                   Push_data(new data(Name.getText().toString(),cpp.getFullNumberWithPlus().replace(" ", ""),Email.getText().toString(),currentUser.getPhotoUrl().toString(),currentUser.getUid()));
                                     go_to_next_page();
                                       Toast.makeText(getApplicationContext(), "register comleted", Toast.LENGTH_SHORT).show();
                                 } else {

@@ -44,6 +44,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -151,7 +152,8 @@ try {
         user_message_title = set_message.findViewById(R.id.user_message_title);
         user_message_description = set_message.findViewById(R.id.user_message_description);
         user_message_progressbar = set_message.findViewById(R.id.progressbar_post_com);
-        Glide.with(this).load(user.getPhotoUrl()).into(user_message_img);
+      //  Glide.with(this).load(user.getPhotoUrl()).into(user_message_img);
+        Picasso.get().load(user.getPhotoUrl()).into(user_message_img);
         user_message_send.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -1,11 +1,10 @@
 package com.example.blogs_app;
 
 public class data {
-   private String name,password,phone,email,userphoto, userid,info_id;
+   private String name,phone,email,userphoto, userid;
 
-    public data(String name, String password, String phone, String email, String userphoto, String userid) {
+    public data(String name, String phone, String email, String userphoto, String userid) {
         this.name = name;
-        this.password = password;
         this.phone = phone;
         this.email = email;
         this.userphoto = userphoto;
@@ -23,13 +22,6 @@ public class data {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getPhone() {
         return phone;
