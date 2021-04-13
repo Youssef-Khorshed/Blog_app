@@ -7,18 +7,20 @@
     tools:context=".LoginForm"
     tools:ignore="MissingClass">
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/loginface"
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/googlesing_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="31dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/google"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints">
-
-    </com.facebook.login.widget.LoginButton>
+        tools:ignore="MissingConstraints,UnknownId"></com.google.android.gms.common.SignInButton>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img"
@@ -95,22 +97,6 @@
         app:layout_constraintTop_toBottomOf="@+id/My_password" />
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/google"
-        android:layout_width="48dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="120dp"
-        android:layout_marginRight="120dp"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/google"
-        app:civ_border_color="#FFFFFF"
-        app:civ_border_width="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/loginface"
-        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/new_register"
@@ -135,15 +121,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="212dp"
         android:layout_marginEnd="283dp"
         android:layout_marginRight="283dp"
+        android:layout_marginBottom="12dp"
         android:text="Sign in using"
         android:textColor="#3949AB"
+        app:layout_constraintBottom_toTopOf="@+id/googlesing_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/My_password" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar2"

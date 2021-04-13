@@ -2,12 +2,12 @@ package com.example.blogs_app.ui.logout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +19,6 @@ import com.example.blogs_app.R;
 import com.example.blogs_app.data;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,7 +82,7 @@ public class user_searchAdaptor extends RecyclerView.Adapter<user_searchAdaptor.
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView useremail_userprofile, username_userprofile;
         CircleImageView userimg_userprofile;
-        ImageView follow;
+        TextView follow;
         FirebaseDatabase firebaseDatabase;
         FirebaseAuth auth;
         DatabaseReference databaseReference;
@@ -94,12 +93,15 @@ public class user_searchAdaptor extends RecyclerView.Adapter<user_searchAdaptor.
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.child(auth.getCurrentUser().getUid()).hasChild(userid)) {
-                        follow.setImageResource(R.drawable.ic_favorite);
+                        follow.setText("Followed");
+                        follow.setTextColor(Color.parseColor("#FF43A047"));
                         tst = true;
 
 
                     } else {
-                        follow.setImageResource(R.drawable.ic_not_favourite);
+                        follow.setText("Follow");
+                        follow.setTextColor(Color.parseColor("#FFEC0803"));
+
                         tst = false;
 
                     }
@@ -120,7 +122,7 @@ public class user_searchAdaptor extends RecyclerView.Adapter<user_searchAdaptor.
             super(itemView);
             username_userprofile = itemView.findViewById(R.id.username_userprofile);
             useremail_userprofile = itemView.findViewById(R.id.useremail_userprofile);
-            userimg_userprofile = itemView.findViewById(R.id.userimg_userprofile);
+            userimg_userprofile = itemView.findViewById(R.id.share_user_img);
             follow = itemView.findViewById(R.id.follow_user);
            firebaseDatabase = FirebaseDatabase.getInstance();
             auth = FirebaseAuth.getInstance();

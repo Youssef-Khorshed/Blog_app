@@ -53,7 +53,7 @@ public class commnet_Activity extends AppCompatActivity  {
         com_img = findViewById(R.id.com_img);
         com_username = findViewById(R.id.com_username);
         date_post_com = findViewById(R.id.date_post_com);
-        userimg_post_com = findViewById(R.id.userimg_userprofile);
+        userimg_post_com = findViewById(R.id.share_user_img);
         send_post_com = findViewById(R.id.send_post_com);
         img_post_com = findViewById(R.id.img_post_com);
 
@@ -184,10 +184,10 @@ public class commnet_Activity extends AppCompatActivity  {
             dialog.setContentView(R.layout.edit_delete_comments);
             dialog.getWindow().getAttributes().gravity = Gravity.TOP;
 
-            ImageView userimg_editcomment = dialog.findViewById(R.id.userimg_userprofile);
-            ImageView edit_comment_btn = dialog.findViewById(R.id.edit_comment_btn);
-            TextView edit_comment_text = dialog.findViewById(R.id.edit_comment_text2);
-            TextView username_edit_comment = dialog.findViewById(R.id.username_edit_comment1);
+            ImageView userimg_editcomment = dialog.findViewById(R.id.share_user_img);
+            ImageView edit_comment_btn = dialog.findViewById(R.id.share_btn);
+            TextView edit_comment_text = dialog.findViewById(R.id.share_comment);
+            TextView username_edit_comment = dialog.findViewById(R.id.share_username_);
             Glide.with(commnet_Activity.this).load(commnet_detailsArrayList.get(position).getUser_img()).into(userimg_editcomment);
             username_edit_comment.setText(commnet_detailsArrayList.get(position).getUser_name());
             dialog.show();

@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userimg_userprofile"
+        android:id="@+id/share_user_img"
         android:layout_width="57dp"
         android:layout_height="56dp"
         android:layout_marginStart="10dp"
@@ -20,7 +20,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/username_edit_comment1"
+        android:id="@+id/share_username_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -30,10 +30,10 @@
         android:textColor="#000000"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userimg_userprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/share_user_img" />
 
     <ImageView
-        android:id="@+id/edit_comment_btn"
+        android:id="@+id/share_btn"
         android:layout_width="30dp"
         android:layout_height="39dp"
         android:layout_marginStart="40dp"
@@ -42,13 +42,13 @@
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edit_comment_text2"
+        app:layout_constraintStart_toEndOf="@+id/share_comment"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_edit"
         tools:ignore="VectorDrawableCompat" />
 
     <EditText
-        android:id="@+id/edit_comment_text2"
+        android:id="@+id/share_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -58,6 +58,6 @@
         android:ems="10"
         android:hint="Commnet"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/userimg_userprofile"
+        app:layout_constraintStart_toEndOf="@+id/share_user_img"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

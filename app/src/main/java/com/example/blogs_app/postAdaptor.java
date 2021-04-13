@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +34,7 @@ public class postAdaptor extends RecyclerView.Adapter<postAdaptor.ViewHolder> im
 
     public interface OnItemClickListener {
         void onEditClick(int position);
+        void onShare(int position);
 
 
     }
@@ -108,7 +108,7 @@ public class postAdaptor extends RecyclerView.Adapter<postAdaptor.ViewHolder> im
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView post_title, post_desc, textView, post_date;
-        public ImageView post_img, user_view, like_btn, message_btn;
+        public ImageView post_img, user_view, like_btn, message_btn, share_btn;
         FirebaseDatabase firebaseDatabase;
         DatabaseReference databaseReference;
         FirebaseAuth auth;
@@ -133,23 +133,23 @@ public class postAdaptor extends RecyclerView.Adapter<postAdaptor.ViewHolder> im
         }
 
 
-
         public ViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             post_title = itemView.findViewById(R.id.post_title);
             post_desc = itemView.findViewById(R.id.post_desc);
             post_img = itemView.findViewById(R.id.post_img);
             textView = itemView.findViewById(R.id.username_post_com);
-            user_view = itemView.findViewById(R.id.userimg_userprofile);
+            user_view = itemView.findViewById(R.id.share_user_img);
             post_date = itemView.findViewById(R.id.post_date);
             message_btn = itemView.findViewById(R.id.message_btn);
             like_btn = itemView.findViewById(R.id.like_btn1);
+            share_btn = itemView.findViewById(R.id.share_btn);
             firebaseDatabase = FirebaseDatabase.getInstance();
             auth = FirebaseAuth.getInstance();
             databaseReference = firebaseDatabase.getReference().child("like");
             databaseReference.keepSynced(true);
 
-/*
+               /*
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -172,6 +172,17 @@ public class postAdaptor extends RecyclerView.Adapter<postAdaptor.ViewHolder> im
  */
 
 
+            share_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onShare(position);
+                        }
+                    }
+                }
+            });
             message_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -193,38 +204,33 @@ public class postAdaptor extends RecyclerView.Adapter<postAdaptor.ViewHolder> im
         return filter;
     }
 
-    Filter filter=new Filter() {
+    Filter filter = new Filter() {
         @Override
         // background thread
-        protected FilterResults performFiltering(CharSequence keyword)
-        {
-            ArrayList<message_data> filtereddata=new ArrayList<>();
+        protected FilterResults performFiltering(CharSequence keyword) {
+            ArrayList<message_data> filtereddata = new ArrayList<>();
 
-            if(keyword.toString().isEmpty())
+            if (keyword.toString().isEmpty())
                 filtereddata.addAll(itemssAll);
-            else
-            {
-                for(message_data obj : itemssAll)
-                {
-                    if(obj.getUser_name().toLowerCase().contains(keyword.toString().toLowerCase()))
+            else {
+                for (message_data obj : itemssAll) {
+                    if (obj.getUser_name().toLowerCase().contains(keyword.toString().toLowerCase()))
                         filtereddata.add(obj);
                 }
             }
 
-            FilterResults results=new FilterResults();
-            results.values=filtereddata;
+            FilterResults results = new FilterResults();
+            results.values = filtereddata;
             return results;
         }
 
         @Override  // main UI thread
-        protected void publishResults(CharSequence constraint, FilterResults results)
-        {
+        protected void publishResults(CharSequence constraint, FilterResults results) {
             post.clear();
-            post.addAll((ArrayList<message_data>)results.values);
+            post.addAll((ArrayList<message_data>) results.values);
             notifyDataSetChanged();
         }
     };
-
 
 
 }

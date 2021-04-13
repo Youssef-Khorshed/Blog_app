@@ -11,11 +11,11 @@
         <item
             android:id="@+id/Profile"
             android:icon="@drawable/ic_profile"
-            android:title="@string/profile" />
+            android:title="Users" />
         <item
             android:id="@+id/Sitting"
             android:icon="@drawable/ic_sitting"
-            android:title="@string/sitting" />
+            android:title="Profile" />
         <item
             android:id="@+id/Logout"
             android:icon="@drawable/ic_logout"

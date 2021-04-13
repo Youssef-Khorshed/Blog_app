@@ -102,7 +102,7 @@ public class RegisterationForm extends AppCompatActivity {
     }
 
     void image_action() {
-        imageView = findViewById(R.id.userimg_userprofile);
+        imageView = findViewById(R.id.share_user_img);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

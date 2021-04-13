@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userimg_userprofile"
+        android:id="@+id/share_user_img"
         android:layout_width="57dp"
         android:layout_height="56dp"
         android:layout_marginStart="30dp"
@@ -20,7 +20,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/username_edit_comment1"
+        android:id="@+id/share_username_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -30,7 +30,7 @@
         android:textColor="#000000"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userimg_userprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/share_user_img" />
 
     <TextView
         android:id="@+id/edit_comment_text1"
@@ -42,7 +42,7 @@
         android:background="@drawable/text_style2"
         android:text="TextView"
         android:textColor="#040404"
-        app:layout_constraintStart_toEndOf="@+id/userimg_userprofile"
+        app:layout_constraintStart_toEndOf="@+id/share_user_img"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -57,7 +57,7 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/username_edit_comment1"
+        app:layout_constraintStart_toEndOf="@+id/share_username_"
         app:layout_constraintTop_toBottomOf="@+id/edit_comment_text1" />
 
     <ImageView
@@ -73,7 +73,7 @@
         tools:ignore="VectorDrawableCompat" />
 
     <ImageView
-        android:id="@+id/edit_comment_btn"
+        android:id="@+id/share_btn"
         android:layout_width="30dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"

@@ -24,6 +24,8 @@ import com.example.blogs_app.R;
 import com.example.blogs_app.User;
 import com.example.blogs_app.data;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,9 +38,6 @@ public class profile extends Fragment {
     RecyclerView recyclerView;
     user_searchAdaptor postAdaptor;
     ArrayList<data> userinfo = new ArrayList<>();
-    ArrayList<String> users = new ArrayList<>();
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
     Senddata senddata;
     ImageView imageView;
 
@@ -46,46 +45,54 @@ public class profile extends Fragment {
         public void send(String data,boolean d);
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        databaseReference.addValueEventListener(new ValueEventListener() {
 
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+       try {
+           FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+           DatabaseReference databaseReference = firebaseDatabase.getReference("user_info");
+           FirebaseAuth auth = FirebaseAuth.getInstance();
+           FirebaseUser user =auth.getCurrentUser();
+           databaseReference.addValueEventListener(new ValueEventListener() {
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    data messageData = dataSnapshot.getValue(data.class);
-                    userinfo.add(messageData);
+               @Override
+               public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                }
-                postAdaptor = new user_searchAdaptor(userinfo, getContext());
-                recyclerView.setAdapter(postAdaptor);
-                postAdaptor.setOnClickListener(new user_searchAdaptor.OnItemClickListener() {
-                    @Override
-                    public void Edit_item(int position, boolean like_state) {
-                        Toast.makeText(getContext(), ""+like_state, Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getActivity(), User.class)
-                                .putExtra("userid",userinfo.get(position).getUserid())
-                                .putExtra("index",position)
-                                .putExtra("img",userinfo.get(position).getUserphoto())
-                                .putExtra("state", like_state)
+                   for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                       data messageData = dataSnapshot.getValue(data.class);
+                       if(user.getUid().compareTo(messageData.getUserid())!=0) {
+                           userinfo.add(messageData);
+                       }
+                   }
+                   postAdaptor = new user_searchAdaptor(userinfo, getContext());
+                   recyclerView.setAdapter(postAdaptor);
+                   postAdaptor.setOnClickListener(new user_searchAdaptor.OnItemClickListener() {
+                       @Override
+                       public void Edit_item(int position, boolean like_state) {
+                           startActivity(new Intent(getActivity(), User.class)
+                                   .putExtra("userid",userinfo.get(position).getUserid())
+                                   .putExtra("index",position)
+                                   .putExtra("img",userinfo.get(position).getUserphoto())
+                                   .putExtra("state", like_state)
 
 
 
 
-                        );
-                    }
-                });
+                           );
+                       }
+                   });
 
-            }
+               }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+               @Override
+               public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+               }
+           });
+       } catch (Exception e) {
+           Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
+       }
 
     }
 
@@ -107,8 +114,7 @@ public class profile extends Fragment {
         recyclerView = v.findViewById(R.id.profile_recycleview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         imageView = v.findViewById(R.id.follow_user);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("user_info");
+
 
 
         return v;

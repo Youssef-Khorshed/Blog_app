@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.blogs_app.ui.logout.profile.Senddata;
+
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -126,12 +126,12 @@ public class commentAdaoptor extends RecyclerView.Adapter<commentAdaoptor.ViewHo
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
-            userimgcomment = itemView.findViewById(R.id.userimg_userprofile);
-            usernamecomment = itemView.findViewById(R.id.username_edit_comment1);
+            userimgcomment = itemView.findViewById(R.id.share_user_img);
+            usernamecomment = itemView.findViewById(R.id.share_username_);
             comment = itemView.findViewById(R.id.edit_comment_text1);
             comment_date = itemView.findViewById(R.id.comment_date1);
             delete_comment = itemView.findViewById(R.id.delete_edited_comment);
-            Edit_click_lisener = itemView.findViewById(R.id.edit_comment_btn);
+            Edit_click_lisener = itemView.findViewById(R.id.share_btn);
             delete_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -27,6 +27,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,12 +45,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class LoginForm extends AppCompatActivity {
     EditText new_email, new_password;
     Button register, Login;
+    SignInButton googlelogin;
     CircleImageView google, facebook;
     ProgressBar p;
     FirebaseAuth auth;
     GoogleSignInClient signInClient;
     static int google_req = 1;
-    static int facebook_req = 2;
     CallbackManager mCallbackManager;
     LoginButton loginButton;
 
@@ -59,7 +60,7 @@ public class LoginForm extends AppCompatActivity {
         new_email = findViewById(R.id.My_email);
         new_password = findViewById(R.id.My_password);
         Login = findViewById(R.id.Login);
-        google = findViewById(R.id.google);
+        googlelogin = findViewById(R.id.googlesing_in);
 
 
     }
@@ -99,9 +100,7 @@ public class LoginForm extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                p.setVisibility(View.VISIBLE);
-                register.setVisibility(View.INVISIBLE);
-                Login.setVisibility(View.INVISIBLE);
+
                 if (new_email.getText().toString().trim().isEmpty()) {
                     new_email.setError("Enter your Email");
                 } else if (new_password.getText().toString().trim().isEmpty()) {
@@ -109,19 +108,15 @@ public class LoginForm extends AppCompatActivity {
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(new_email.getText().toString()).matches()) {
                     new_email.setError("Enter correct email");
                 } else {
+                    successsfull();
                     auth.signInWithEmailAndPassword(new_email.getText().toString(), new_password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                p.setVisibility(View.VISIBLE);
-                                register.setVisibility(View.INVISIBLE);
-                                Login.setVisibility(View.INVISIBLE);
                                 Toast.makeText(getApplicationContext(), "successfull", Toast.LENGTH_SHORT).show();
                                 go_to_homePage();
                             } else {
-                                p.setVisibility(View.INVISIBLE);
-                                register.setVisibility(View.VISIBLE);
-                                Login.setVisibility(View.VISIBLE);
+                                failed();
                                 Toast.makeText(getApplicationContext(), "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
                             }
@@ -142,19 +137,19 @@ public class LoginForm extends AppCompatActivity {
                 .build();
 
         signInClient = GoogleSignIn.getClient(this, sign);
-        google.setOnClickListener(new View.OnClickListener() {
+        googlelogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                successsfull();
                 sign_req();
             }
         });
     }
-
+/*
     void face_sing() {
         mCallbackManager = CallbackManager.Factory.create();
         loginButton = findViewById(R.id.loginface);
-        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.setReadPermissions("email", "public_profile", "user_friends");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -196,9 +191,7 @@ public class LoginForm extends AppCompatActivity {
                 });
 
     }
-
-
-
+*/
 
 
     private void sign_req() {
@@ -210,18 +203,20 @@ public class LoginForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         auth = FirebaseAuth.getInstance();
-        FacebookSdk.sdkInitialize(LoginForm.this);
+        //  FacebookSdk.sdkInitialize(LoginForm.this);
         calling();
         login();
         setRegister();
         google_sing();
+
+        /*
         try {
             face_sing();
         } catch (Exception e) {
             Toast.makeText(LoginForm.this, e.getMessage(),
                     Toast.LENGTH_SHORT).show();
         }
-
+        */
     }
 
     @Override
@@ -243,9 +238,7 @@ public class LoginForm extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        p.setVisibility(View.INVISIBLE);
-        register.setVisibility(View.VISIBLE);
-        Login.setVisibility(View.VISIBLE);
+       failed();
     }
 
     @Override
@@ -255,10 +248,12 @@ public class LoginForm extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             hand_sing_in(task);
         }
+        /*
         else {
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
-        }
+        */
+    }
 
     private void hand_sing_in(Task<GoogleSignInAccount> task) {
         try {
@@ -275,6 +270,7 @@ public class LoginForm extends AppCompatActivity {
     }
 
     private void FirebaseGoogleAuth(GoogleSignInAccount signInAccount) {
+
         if (signInAccount != null) {
             AuthCredential authCredential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
             auth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -291,6 +287,7 @@ public class LoginForm extends AppCompatActivity {
                 }
             });
         } else {
+
             Toast.makeText(LoginForm.this, "acc failed", Toast.LENGTH_SHORT).show();
         }
     }
@@ -305,6 +302,7 @@ public class LoginForm extends AppCompatActivity {
 
         }
     }
+
     private void updateUI_face(FirebaseUser account) {
         if (account != null) {
             String personName = account.getDisplayName();
@@ -325,4 +323,15 @@ public class LoginForm extends AppCompatActivity {
         go_to_homePage();
     }
 
+    void successsfull() {
+        p.setVisibility(View.VISIBLE);
+        register.setVisibility(View.INVISIBLE);
+        Login.setVisibility(View.INVISIBLE);
+    }
+
+    void failed() {
+        p.setVisibility(View.INVISIBLE);
+        register.setVisibility(View.VISIBLE);
+        Login.setVisibility(View.VISIBLE);
+    }
 }
